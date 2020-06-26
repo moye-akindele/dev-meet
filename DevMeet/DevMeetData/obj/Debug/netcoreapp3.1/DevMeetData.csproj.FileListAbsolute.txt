@@ -1,0 +1,9 @@
+C:\Users\Moye\Documents\Repo\DevMeet\DevMeet\DevMeetData\bin\Debug\netcoreapp3.1\DevMeetData.deps.json
+C:\Users\Moye\Documents\Repo\DevMeet\DevMeet\DevMeetData\bin\Debug\netcoreapp3.1\DevMeetData.dll
+C:\Users\Moye\Documents\Repo\DevMeet\DevMeet\DevMeetData\bin\Debug\netcoreapp3.1\DevMeetData.pdb
+C:\Users\Moye\Documents\Repo\DevMeet\DevMeet\DevMeetData\obj\Debug\netcoreapp3.1\DevMeetData.csprojAssemblyReference.cache
+C:\Users\Moye\Documents\Repo\DevMeet\DevMeet\DevMeetData\obj\Debug\netcoreapp3.1\DevMeetData.AssemblyInfoInputs.cache
+C:\Users\Moye\Documents\Repo\DevMeet\DevMeet\DevMeetData\obj\Debug\netcoreapp3.1\DevMeetData.AssemblyInfo.cs
+C:\Users\Moye\Documents\Repo\DevMeet\DevMeet\DevMeetData\obj\Debug\netcoreapp3.1\DevMeetData.csproj.CoreCompileInputs.cache
+C:\Users\Moye\Documents\Repo\DevMeet\DevMeet\DevMeetData\obj\Debug\netcoreapp3.1\DevMeetData.dll
+C:\Users\Moye\Documents\Repo\DevMeet\DevMeet\DevMeetData\obj\Debug\netcoreapp3.1\DevMeetData.pdb
