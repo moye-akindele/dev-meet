@@ -25,6 +25,7 @@ namespace DevMeet
                opt.UseInMemoryDatabase("SeatList"));
 
             services.AddScoped<SeatRepository>();
+            services.AddScoped<EventRepository>();
 
             services.AddControllers();
         }

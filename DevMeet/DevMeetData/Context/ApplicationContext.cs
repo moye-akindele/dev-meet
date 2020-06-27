@@ -1,8 +1,5 @@
 ﻿using DevMeetData.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DevMeetData.Context
 {
@@ -14,5 +11,6 @@ namespace DevMeetData.Context
         }
 
         public DbSet<Seat> Seats { get; set; }
+        public DbSet<Event> Events { get; set; }
     }
 }
