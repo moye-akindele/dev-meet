@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DevMeetData.Models;
+using DevMeetData.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DevMeetData.Context;
-using DevMeetData.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DevMeet.Controllers
 {
@@ -12,50 +11,50 @@ namespace DevMeet.Controllers
     [Route("[controller]")]
     public class EventsController : ControllerBase
     {
-        private readonly ApplicationContext _context;
+        private readonly EventRepository _eventsRepository;
 
-        public EventsController(ApplicationContext context)
+        public EventsController(EventRepository eventsRepository)
         {
-            _context = context;
+            _eventsRepository = eventsRepository;
         }
 
         // GET: api/Events
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
-            return await _context.Events.ToListAsync();
+            return await _eventsRepository.GetAll();
         }
 
         // GET: api/Events/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Event>> GetEvent(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
+            var devEvent = await _eventsRepository.Get(id);
 
-            if (@event == null)
+            if (devEvent == null)
             {
                 return NotFound();
             }
 
-            return @event;
+            return devEvent;
         }
 
         // PUT: api/Events/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEvent(int id, Event @event)
+        public async Task<IActionResult> PutEvent(int id, Event devEvent)
         {
-            if (id != @event.Id)
+            if (id != devEvent.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(@event).State = EntityState.Modified;
+            Event updatedEvent = new Event();
 
             try
             {
-                await _context.SaveChangesAsync();
+                updatedEvent = await _eventsRepository.Update(devEvent);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -68,41 +67,33 @@ namespace DevMeet.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            return (IActionResult)updatedEvent;
         }
 
         // POST: api/Events
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Event>> PostEvent(Event @event)
+        public async Task<ActionResult<Event>> PostEvent(Event devEvent)
         {
-            _context.Events.Add(@event);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetEvent", new { id = @event.Id }, @event);
+            return await _eventsRepository.Add(devEvent);
         }
 
         // DELETE: api/Events/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Event>> DeleteEvent(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
-            if (@event == null)
+            var devEvent = await _eventsRepository.Delete(id);
+            if (devEvent == null)
             {
                 return NotFound();
             }
-
-            _context.Events.Remove(@event);
-            await _context.SaveChangesAsync();
-
-            return @event;
+            return devEvent;
         }
 
         private bool EventExists(int id)
         {
-            return _context.Events.Any(e => e.Id == id);
+            return _eventsRepository.ItemExists(id);
         }
     }
 }

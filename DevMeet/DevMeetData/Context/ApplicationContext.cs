@@ -12,5 +12,7 @@ namespace DevMeetData.Context
 
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<EventBooking> EventBookings { get; set; }
+        public DbSet<BookingItem> BookingItems { get; set; }
     }
 }

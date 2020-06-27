@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DevMeetData.DTO
+﻿namespace DevMeetData.DTO
 {
     public class SeatDTO
     {
@@ -11,3 +7,4 @@ namespace DevMeetData.DTO
         public string Row { get; set; }
     }
 }
+ 

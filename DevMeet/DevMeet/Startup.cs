@@ -26,6 +26,8 @@ namespace DevMeet
 
             services.AddScoped<SeatRepository>();
             services.AddScoped<EventRepository>();
+            services.AddScoped<EventBookingRepository>();
+            services.AddScoped<BookingItemRepository>();
 
             services.AddControllers();
         }
