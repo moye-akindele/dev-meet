@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using DevMeet.Services;
+using DevMeetData.DTO;
+using DevMeetData.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DevMeetData.Models;
-using DevMeetData.Repositories;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DevMeet.Controllers
 {
@@ -11,25 +12,25 @@ namespace DevMeet.Controllers
     [Route("[controller]")]
     public class SeatsController : ControllerBase
     {
-        private readonly SeatRepository _seatRepository;
+        private readonly ISeatService _seatService;
 
-        public SeatsController(SeatRepository seatRepository)
+        public SeatsController(ISeatService seatService)
         {
-            _seatRepository = seatRepository;
+            _seatService = seatService;
         }
 
         // GET: api/Seats
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Seat>>> GetSeats()
+        public async Task<IEnumerable<SeatDTO>> GetSeats()
         {
-            return await _seatRepository.GetAll();
+            return await _seatService.GetSeats();
         }
 
         // GET: api/Seats/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Seat>> GetSeat(int id)
+        public async Task<ActionResult<SeatDTO>> GetSeat(int id)
         {
-            var seat = await _seatRepository.Get(id);
+            var seat = await _seatService.Get(id);
 
             if (seat == null)
             {
@@ -50,11 +51,11 @@ namespace DevMeet.Controllers
                 return BadRequest();
             }
 
-            Seat updatedSeat = new Seat();
+            SeatDTO updatedSeat = new SeatDTO();
 
             try
             {
-                updatedSeat = await _seatRepository.Update(seat);
+                updatedSeat = await _seatService.Update(seat);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -74,16 +75,16 @@ namespace DevMeet.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Seat>> PostSeat(Seat seat)
+        public async Task<SeatDTO> PostSeat(Seat seat)
         {
-            return await _seatRepository.Add(seat);
+            return await _seatService.Add(seat);
         }
 
         // DELETE: api/Seats/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Seat>> DeleteSeat(int id)
+        public async Task<ActionResult<SeatDTO>> DeleteSeat(int id)
         {
-            var seat = await _seatRepository.Delete(id);
+            var seat = await _seatService.Delete(id);
             if (seat == null)
             {
                 return NotFound();
@@ -93,7 +94,7 @@ namespace DevMeet.Controllers
 
         private bool SeatExists(int id)
         {
-            return _seatRepository.ItemExists(id);
+            return _seatService.SeatExists(id);
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using DevMeetData.Models;
-using DevMeetData.Repositories;
+﻿using DevMeet.Services;
+using DevMeetData.DTO;
+using DevMeetData.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -11,25 +12,26 @@ namespace DevMeet.Controllers
     [Route("[controller]")]
     public class EventsController : ControllerBase
     {
-        private readonly EventRepository _eventsRepository;
+        // private readonly EventRepository _eventsRepository;
+        private readonly IEventService _eventService;
 
-        public EventsController(EventRepository eventsRepository)
+        public EventsController(IEventService eventService)
         {
-            _eventsRepository = eventsRepository;
+            _eventService = eventService;
         }
 
         // GET: api/Events
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
+        public async Task<IEnumerable<EventDTO>> GetEvents()
         {
-            return await _eventsRepository.GetAll();
+            return await _eventService.GetEvents();
         }
 
         // GET: api/Events/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Event>> GetEvent(int id)
+        public async Task<ActionResult<EventDTO>> GetEvent(int id)
         {
-            var devEvent = await _eventsRepository.Get(id);
+            var devEvent = await _eventService.Get(id);
 
             if (devEvent == null)
             {
@@ -50,11 +52,11 @@ namespace DevMeet.Controllers
                 return BadRequest();
             }
 
-            Event updatedEvent = new Event();
+            EventDTO updatedEvent = new EventDTO();
 
             try
             {
-                updatedEvent = await _eventsRepository.Update(devEvent);
+                updatedEvent = await _eventService.Update(devEvent);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -74,16 +76,16 @@ namespace DevMeet.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Event>> PostEvent(Event devEvent)
+        public async Task<EventDTO> PostEvent(Event devEvent)
         {
-            return await _eventsRepository.Add(devEvent);
+            return await _eventService.Add(devEvent);
         }
 
         // DELETE: api/Events/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Event>> DeleteEvent(int id)
+        public async Task<ActionResult<EventDTO>> DeleteEvent(int id)
         {
-            var devEvent = await _eventsRepository.Delete(id);
+            var devEvent = await _eventService.Delete(id);
             if (devEvent == null)
             {
                 return NotFound();
@@ -93,7 +95,7 @@ namespace DevMeet.Controllers
 
         private bool EventExists(int id)
         {
-            return _eventsRepository.ItemExists(id);
+            return _eventService.EventExists(id);
         }
     }
 }

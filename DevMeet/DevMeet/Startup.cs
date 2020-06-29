@@ -1,11 +1,12 @@
+using DevMeet.Services;
 using DevMeetData.Context;
+using DevMeetData.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using DevMeetData.Repositories;
 
 namespace DevMeet
 {
@@ -23,6 +24,11 @@ namespace DevMeet
         {
             services.AddDbContext<ApplicationContext>(opt =>
                opt.UseInMemoryDatabase("SeatList"));
+
+            services.AddScoped<ISeatService, SeatService>();
+            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IEventBookingService, EventBookingService>();
+            services.AddScoped<IBookingItemService, BookingItemService>();
 
             services.AddScoped<SeatRepository>();
             services.AddScoped<EventRepository>();

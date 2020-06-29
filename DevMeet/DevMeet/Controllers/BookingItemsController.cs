@@ -1,5 +1,6 @@
-﻿using DevMeetData.Models;
-using DevMeetData.Repositories;
+﻿using DevMeet.Services;
+using DevMeetData.DTO;
+using DevMeetData.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -11,25 +12,25 @@ namespace DevMeet.Controllers
     [Route("[controller]")]
     public class BookingItemsController : ControllerBase
     {
-        private readonly BookingItemRepository _bookingItemRepository;
+        private readonly IBookingItemService _bookingItemService;
 
-        public BookingItemsController(BookingItemRepository bookingItemRepository)
+        public BookingItemsController(IBookingItemService bookingItemService)
         {
-            _bookingItemRepository = bookingItemRepository;
+            _bookingItemService = bookingItemService;
         }
 
         // GET: api/BookingItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookingItem>>> GetBookingItems()
+        public async Task<IEnumerable<BookingItemDTO>> GetBookingItems()
         {
-            return await _bookingItemRepository.GetAll();
+            return await _bookingItemService.GetBookingItems();
         }
 
         // GET: api/BookingItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BookingItem>> GetBookingItem(int id)
+        public async Task<ActionResult<BookingItemDTO>> GetBookingItem(int id)
         {
-            var bookingItem = await _bookingItemRepository.Get(id);
+            var bookingItem = await _bookingItemService.Get(id);
 
             if (bookingItem == null)
             {
@@ -50,11 +51,11 @@ namespace DevMeet.Controllers
                 return BadRequest();
             }
 
-            BookingItem updatedBookingItem = new BookingItem();
+            BookingItemDTO updatedBookingItem = new BookingItemDTO();
 
             try
             {
-                updatedBookingItem = await _bookingItemRepository.Update(bookingItem);
+                updatedBookingItem = await _bookingItemService.Update(bookingItem);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -74,16 +75,16 @@ namespace DevMeet.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<BookingItem>> PostBookingItem(BookingItem bookingItem)
+        public async Task<ActionResult<BookingItemDTO>> PostBookingItem(BookingItem bookingItem)
         {
-            return await _bookingItemRepository.Add(bookingItem);
+            return await _bookingItemService.Add(bookingItem);
         }
 
         // DELETE: api/BookingItems/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<BookingItem>> DeleteBookingItem(int id)
+        public async Task<ActionResult<BookingItemDTO>> DeleteBookingItem(int id)
         {
-            var bookingItem = await _bookingItemRepository.Delete(id);
+            var bookingItem = await _bookingItemService.Delete(id);
             if (bookingItem == null)
             {
                 return NotFound();
@@ -93,7 +94,7 @@ namespace DevMeet.Controllers
 
         private bool BookingItemExists(int id)
         {
-            return _bookingItemRepository.ItemExists(id);
+            return _bookingItemService.BookingItemExists(id);
         }
     }
 }
