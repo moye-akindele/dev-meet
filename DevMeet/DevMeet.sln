@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMeet", "DevMeet\DevMeet.csproj", "{0DC59B28-02F4-4A4D-AD65-1F208C0700B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevMeet", "DevMeet\DevMeet.csproj", "{0DC59B28-02F4-4A4D-AD65-1F208C0700B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMeetData", "DevMeetData\DevMeetData.csproj", "{21280DC5-51D7-4432-B09A-2FA6FDC549D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevMeetData", "DevMeetData\DevMeetData.csproj", "{21280DC5-51D7-4432-B09A-2FA6FDC549D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevMeetTests", "DevMeetTests\DevMeetTests.csproj", "{F32B9F87-7B4C-4572-9E26-836CA16F5C34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{21280DC5-51D7-4432-B09A-2FA6FDC549D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21280DC5-51D7-4432-B09A-2FA6FDC549D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21280DC5-51D7-4432-B09A-2FA6FDC549D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F32B9F87-7B4C-4572-9E26-836CA16F5C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F32B9F87-7B4C-4572-9E26-836CA16F5C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F32B9F87-7B4C-4572-9E26-836CA16F5C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F32B9F87-7B4C-4572-9E26-836CA16F5C34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
